@@ -5,12 +5,13 @@ export const exampleRouter = createRouter()
   .query("hello", {
     input: z
       .object({
-        text: z.string().nullish(),
+        text: z.number().nullish(),
       })
       .nullish(),
     resolve({ input }) {
       return {
         greeting: `Hello ${input?.text ?? "world"}`,
+        date: new Date(),
       };
     },
   })
@@ -18,4 +19,9 @@ export const exampleRouter = createRouter()
     async resolve({ ctx }) {
       return await ctx.prisma.example.findMany();
     },
+  })
+  .query("theoLogos", {
+    async resolve() {
+      return ["VSCODE", "Linear", "NEXTJS", ]
+    }
   });
